@@ -1,9 +1,4 @@
 /*
-Функция для проверки длины строки.
-Она принимает строку, которую нужно проверить, и максимальную длину и возвращает true,
-если строка меньше или равна указанной длине, и false, если строка длиннее.
-Эта функция нам пригодится для валидации формы. Примеры использования функции:
-
 // Строка короче 20 символов
 имяФункции('проверяемая строка', 20); // true
 // Длина строки ровно 18 символов
@@ -26,7 +21,7 @@ const makeCheckLength2 = function(str) {
     return false;
   }
 };
-console.log(makeCheckLength2('jhghccghg'));
+console.log(makeCheckLength2('jhghcgiuytrfgtyhgj'));
 
 const makeCheckLength3 = function(str) {
   if (str.length < 10) {
@@ -37,4 +32,52 @@ const makeCheckLength3 = function(str) {
 };
 console.log(makeCheckLength3('jcghmmmmmmmmmmmg'));
 
+/*
+// Строка является палиндромом
+имяФункции('топот'); // true
+// Несмотря на разный регистр, тоже палиндром
+имяФункции('ДовОд'); // true
+// Это не палиндром
+имяФункции('Кекс');  // false
+*/
 
+function isPal(str) {
+  let reversed = '';
+  for(let i = str.length - 1; i >= 0; i--) {
+    reversed = reversed + str[i];
+  }
+  return reversed === str;
+}
+console.log(isPal('топот'));
+
+
+function isPal2(str) {
+  str = str.toLowerCase();
+  let reversed = '';
+  for(let i = str.length - 1; i >= 0; i--) {
+    reversed = reversed + str[i];
+  }
+  return reversed === str;
+}
+console.log(isPal2('ДовОд'));
+
+function isPal3(str) {
+  let reversed = '';
+  for(let i = str.length - 1; i >= 0; i--) {
+    reversed = reversed + str[i];
+  }
+  return reversed === str;
+}
+console.log(isPal3('Кекс'));
+
+
+function isPal4(str) {
+  str = str.replaceAll(' ','');
+  str = str.toLowerCase();
+  let reversed = '';
+  for(let i = str.length - 1; i >= 0; i--) {
+    reversed = reversed + str[i];
+  }
+  return reversed === str ? 'yes' : 'no';
+}
+console.log(isPal4('ДовОд'));
