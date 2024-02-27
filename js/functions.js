@@ -7,30 +7,19 @@
 имяФункции('проверяемая строка', 10); // false
 */
 
-const makeCheckLength = function(str, length) {
-  if (str.length < length) {
-    return true;
+const makeCheckLength = function(str, length, arg) {
+  if (arg === 'bigger') {
+    return (str.length < length);
+  } else if(arg === 'equal') {
+    return (str.length === 18);
+  } else if (arg === 'smaller') {
+    return (str.length > 10);
   }
 };
-console.log(makeCheckLength('строка', 20));
 
-const makeCheckLength2 = function(str) {
-  if (str.length === 18) {
-    return true;
-  } else {
-    return false;
-  }
-};
-console.log(makeCheckLength2('jhghcgiuytrfgtyhgj'));
-
-const makeCheckLength3 = function(str) {
-  if (str.length < 10) {
-    return true;
-  } else {
-    return false;
-  }
-};
-console.log(makeCheckLength3('jcghmmmmmmmmmmmg'));
+console.log(makeCheckLength('строка', 20, 'bigger'));
+console.log(makeCheckLength('jhghcgiuytrfgtyhgj', 18, 'equal'));
+console.log(makeCheckLength('jcgh', 10, 'smaller'));
 
 /*
 // Строка является палиндромом
@@ -42,6 +31,8 @@ console.log(makeCheckLength3('jcghmmmmmmmmmmmg'));
 */
 
 function isPal(str) {
+  str = str.toLowerCase();
+  str = str.replaceAll(' ','');
   let reversed = '';
   for(let i = str.length - 1; i >= 0; i--) {
     reversed = reversed + str[i];
@@ -49,35 +40,6 @@ function isPal(str) {
   return reversed === str;
 }
 console.log(isPal('топот'));
-
-
-function isPal2(str) {
-  str = str.toLowerCase();
-  let reversed = '';
-  for(let i = str.length - 1; i >= 0; i--) {
-    reversed = reversed + str[i];
-  }
-  return reversed === str;
-}
-console.log(isPal2('ДовОд'));
-
-function isPal3(str) {
-  let reversed = '';
-  for(let i = str.length - 1; i >= 0; i--) {
-    reversed = reversed + str[i];
-  }
-  return reversed === str;
-}
-console.log(isPal3('Кекс'));
-
-
-function isPal4(str) {
-  str = str.replaceAll(' ','');
-  str = str.toLowerCase();
-  let reversed = '';
-  for(let i = str.length - 1; i >= 0; i--) {
-    reversed = reversed + str[i];
-  }
-  return reversed === str ? 'yes' : 'no';
-}
-console.log(isPal4('ДовОд'));
+console.log(isPal('ДовОд'));
+console.log(isPal('Кекс'));
+console.log(isPal('Лёша на полке клопа нашёл'));
