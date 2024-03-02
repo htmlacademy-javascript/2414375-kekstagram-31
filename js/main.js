@@ -56,14 +56,12 @@ function getRandom (min, max) {
 }
 
 //функция, создающая объект - описание комментария.
-const createComment = () => {
-  return {
-    id: getRandom(MIN_ID, MAX_ID),
-    avatar: `img/avatar-${getRandom(MIN_AVATAR, MAX_AVATAR)}.svg`,
-    message: MASSAGE[getRandom(0, MASSAGE.length - 1)],
-    name: NAME[getRandom(0, NAME.length - 1)],
-  };
-};
+const createComment = () => ({
+  id: getRandom(MIN_ID, MAX_ID),
+  avatar: `img/avatar-${getRandom(MIN_AVATAR, MAX_AVATAR)}.svg`,
+  message: MASSAGE[getRandom(0, MASSAGE.length - 1)],
+  name: NAME[getRandom(0, NAME.length - 1)],
+});
 
 const similarComments = Array.from({length: getRandom(MIN_COMMENT, MAX_COMMENT)}, createComment); //массив случайных комментариев
 //const totalComments = similarComments[randomComment];
@@ -72,15 +70,13 @@ const totalComments = similarComments;
 console.log(totalComments);
 
 //функция, создающая объект - описание фотографии, опубликованной пользователем.
-const descriptionPhoto = () => {
-  return {
-    id: getRandom(MIN_ID, MAX_ID),
-    url: `photos/${getRandom(MIN_ID, MAX_ID)}.jpg`,
-    description: DESCRIPTION[getRandom(0, DESCRIPTION.length - 1)],
-    likes: getRandom(MIN_LIKES, MAX_LIKES),
-    comments: totalComments,//
-  };
-};
+const descriptionPhoto = () => ({
+  id: getRandom(MIN_ID, MAX_ID),
+  url: `photos/${getRandom(MIN_ID, MAX_ID)}.jpg`,
+  description: DESCRIPTION[getRandom(0, DESCRIPTION.length - 1)],
+  likes: getRandom(MIN_LIKES, MAX_LIKES),
+  comments: totalComments,
+});
 
 const similarPhotos = Array.from({length: 25}, descriptionPhoto);
 
