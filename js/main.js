@@ -8,7 +8,6 @@
 
 */
 
-const MIN_ID = 1;
 const MAX_ID = 25;
 
 const MIN_LIKES = 15;
@@ -17,10 +16,10 @@ const MAX_LIKES = 200;
 const MIN_AVATAR = 1;
 const MAX_AVATAR = 6;
 
-const MIN_COMMENT = 0;
+const MIN_COMMENT = 1;
 const MAX_COMMENT = 30;
 
-const DESCRIPTION = [
+const DESCRIPTIONS = [
   'Фото 1',
   'Фото 2',
   'Фото 3',
@@ -28,7 +27,7 @@ const DESCRIPTION = [
   'Фото 5',
 ];
 
-const NAME = [
+const NAMES = [
   'Маша',
   'Лена',
   'Витя',
@@ -38,7 +37,7 @@ const NAME = [
   'Глеб',
 ];
 
-const MASSAGE = [
+const MASSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -48,36 +47,39 @@ const MASSAGE = [
 ];
 
 //функция, получающая случайное число из диапазона чисел
-function getRandom (min, max) {
-  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
-  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-}
+const getRandom = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+const addComment = (id) => ({
+  id: id,
+  avatar: `img/avatar-${getRandom(MIN_AVATAR, MAX_AVATAR)}.svg`,
+  message: MASSAGES[getRandom(0, MASSAGES.length - 1)],
+  name: NAMES[getRandom(0, NAMES.length - 1)],
+});
 
 //функция, создающая объект - описание комментария.
-const createComment = () => ({
-  id: getRandom(MIN_ID, MAX_ID),
-  avatar: `img/avatar-${getRandom(MIN_AVATAR, MAX_AVATAR)}.svg`,
-  message: MASSAGE[getRandom(0, MASSAGE.length - 1)],
-  name: NAME[getRandom(0, NAME.length - 1)],
-});
-
-const similarComments = Array.from({length: getRandom(MIN_COMMENT, MAX_COMMENT)}, createComment); //массив случайных комментариев
-//const totalComments = similarComments[randomComment];
-const totalComments = similarComments;
-
-console.log(totalComments);
+const addComments = () => {
+  const comments = [];
+  for (let i = 1; i <= getRandom(MIN_COMMENT, MAX_COMMENT); i++){
+    comments.push(addComment(i)); // добавляет элемент внутрь массива
+  }
+  return comments;
+};
 
 //функция, создающая объект - описание фотографии, опубликованной пользователем.
-const descriptionPhoto = () => ({
-  id: getRandom(MIN_ID, MAX_ID),
-  url: `photos/${getRandom(MIN_ID, MAX_ID)}.jpg`,
-  description: DESCRIPTION[getRandom(0, DESCRIPTION.length - 1)],
+const photos = [];
+const addPhoto = (id) => ({
+  id: id,
+  url: `photos/${id}.jpg`,
+  description: DESCRIPTIONS[getRandom(0, DESCRIPTIONS.length - 1)],
   likes: getRandom(MIN_LIKES, MAX_LIKES),
-  comments: totalComments,
+  comments: addComments(),
 });
 
-const similarPhotos = Array.from({length: 25}, descriptionPhoto);
+//функция, создающая массив объектов
+const addPhotos = () => {
+  for (let i = 1; i <= MAX_ID; i++){
+    photos.push(addPhoto(i)); // добавляет элемент внутрь массива
+  }
+};
 
-console.log(similarPhotos);
+addPhotos();
